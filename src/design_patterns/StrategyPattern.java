@@ -1,5 +1,7 @@
 package design_patterns;
-
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 public class StrategyPattern {
     // Strategy is a behavioral design pattern that lets you
     // define a family of algorithms, put each of them into a
@@ -107,10 +109,18 @@ public class StrategyPattern {
     IQuackBehaviour LoudQuack = ()->{};
 
     // Now when u want the CityDuck
-    DuckWihtStrategy CityDuckS = new DuckWihtStrategy(new SimpleFly(), new TextDisplay(), new SimpleQuack());
+    DuckWihtStrategy cityDuckS = new DuckWihtStrategy(new SimpleFly(), new TextDisplay(), new SimpleQuack());
 
     // similaly wild duck is
-    DuckWihtStrategy WildDuckS = new DuckWihtStrategy(new JetFly(), new TextDisplay(), LoudQuack);
+    DuckWihtStrategy wildDuckS = new DuckWihtStrategy(()->{}, ()->{}, LoudQuack);
+
+    Class cls = wildDuckS.getClass();
+
+    Method[] methods = cls.getMethods();
+
+    // Printing method names
+//    for( var i = 0 ; i < methods.length; i++ )
+//        System.out.println(methods[i].getName());
 
 
 
