@@ -1,4 +1,4 @@
-package dataBase;
+package chain;
 
 import java.util.*;
 
@@ -12,21 +12,20 @@ class Expression {
         this.operation = o;
     }
 }
-public class RDBTable implements Table{
+public class RDBChair implements Chair {
 
     private String name;
     private final Integer rowSize;
     public Integer size = 0;
-    public ArrayList<ArrayList<Integer>> tableData = new ArrayList<>();
-    private Set<Integer> indexList = new HashSet<>();
-    private HashMap<Integer, TreeMap<Integer, Set<Integer>>> indexes = new HashMap<>();
-    private Queue<Integer> deletedAddress = new LinkedList<Integer>();;
+    public ArrayList<ArrayList<Integer>> tableData;
+    private Set<Integer> indexList;
+    private HashMap<Integer, TreeMap<Integer, Set<Integer>>> indexes;
+    private Queue<Integer> deletedAddress;
     public void createIndex(Integer col) {
         indexList.add(col);
         indexes.put(col, new TreeMap<>() );
         for( int i = 0; i < tableData.size(); i++) {
-            if (!deletedAddress.contains(i))
-                addAddressToIndex(col, i);
+            if (!deletedAddress.contains(i)) addAddressToIndex(col, i);
         }
         System.out.println(indexes.get(col));
     }
@@ -36,8 +35,7 @@ public class RDBTable implements Table{
         if(tM.containsKey(row.get(colIndex))) {
             tM.get(row.get(colIndex)).add(tableDataAddress);
         }
-        else
-            tM.putIfAbsent(row.get(colIndex), new HashSet<>(List.of(tableDataAddress)));
+        else tM.putIfAbsent(row.get(colIndex), new HashSet<>(List.of(tableDataAddress)));
     }
     private void pushToIndexs(Integer tableDataAddress){
         for(Integer colIndex : indexList){
@@ -54,10 +52,15 @@ public class RDBTable implements Table{
         }
     }
 
-    public RDBTable(String name, Integer rowSize){
+    public RDBChair(String name, Integer rowSize){
         this.name = name;
         this.rowSize = rowSize;
+        this.tableData = new ArrayList<>();
+        this.indexList = new HashSet<>();
+        this.indexes = new HashMap<>();
+        this.deletedAddress = new LinkedList<>();
         createIndex(0);
+
     }
     @Override
     public void add(ArrayList<Integer> row) {

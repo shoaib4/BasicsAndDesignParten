@@ -1,6 +1,5 @@
-package dataBase;
+package chain;
 
-import java.net.SocketOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ public class Main {
         System.out.println("Hello world!");
 
         DataBase DB = new DataBase("DB");
-        RDBTable T = (RDBTable) DB.createTable("table1", 4);
+        RDBChair T = (RDBChair) DB.createTable("table1", 4);
         System.out.println(DB.M);
 
         System.out.println(T.tableData);
@@ -28,7 +27,7 @@ public class Main {
         T.createIndex(1);
         Expression exp2 = new Expression(1, 1, 2);
         System.out.println(T.where(exp2));
-        RDBTable Tt = (RDBTable) DB.M.get("table1");
+        RDBChair Tt = (RDBChair) DB.M.get("table1");
         System.out.println(Tt.tableData);
 
     }
